@@ -34,6 +34,9 @@ class Game extends Model
 
     public function status($token)
     {
+        if (!(isset($data['token'])))
+            return $this->badResponse(self::ERRORS[4]);
+
         $game = $this->where('token', '=', $token)->first();
 
         if ($game === null) return $this->response(404, json_encode(['status' => false, 'message' => 'game not found']));
